@@ -6,4 +6,6 @@ Requires golang 1.2
 
 ## How to run
 
-    go run cards.go
+    # Set your GOPATH env variable
+    export GOPATH=~/projects/poker-simulator
+    go run src/main.go

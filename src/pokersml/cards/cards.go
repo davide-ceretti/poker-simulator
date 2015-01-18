@@ -1,8 +1,9 @@
-package main
+package cards
 
 import "fmt"
-import "math/rand"
 import "bytes"
+import "math/rand"
+
 
 type Suit struct {
     Short_desc rune
@@ -57,13 +58,13 @@ func (c Card) Short_desc() string {
     )
 }
 
-type deck struct {
+type Deck struct {
     Cards [52]*Card
     size int
 }
 
-func NewDeck() *deck {
-    deck := new(deck)
+func NewDeck() *Deck {
+    deck := new(Deck)
     deck.size = len(deck.Cards)
     for i, suit := range SUITES {
         for j, card_value := range CARD_VALUES {
@@ -73,7 +74,7 @@ func NewDeck() *deck {
     return deck
 }
 
-func (d *deck) Pop() *Card {
+func (d *Deck) Pop() *Card {
     index_chosen := 0
     if d.size > 0 {
         index_chosen = rand.Intn(d.size)
@@ -86,7 +87,7 @@ func (d *deck) Pop() *Card {
     return card
 }
 
-func (d deck) ToString() string {
+func (d Deck) ToString() string {
     var buffer bytes.Buffer
 
     buffer.WriteString("[")
@@ -99,16 +100,4 @@ func (d deck) ToString() string {
     }
     buffer.WriteString("]")
     return buffer.String()
-}
-
-func main() {
-    rand.Seed(42)
-    // Build a deck
-    var a_deck = NewDeck()
-    for i := 1; i <= 52; i++ {
-        card := a_deck.Pop()
-        fmt.Printf("Popped %v\n", card.Short_desc())
-        fmt.Println(a_deck.ToString())
-    }
-
 }
